@@ -11,22 +11,26 @@ import click
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager
 from flask_login import UserMixin
-from flask_login import login_user
+from flask_login import login_user, current_user
 from flask_login import login_required, logout_user
+from flask_login import LoginManager
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # 用于保持会话安全
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 ##########################################
-from flask import Flask, session
-from flask_session import Session
-import os
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SECRET_KEY'] = os.urandom(24)
-Session(app)
+#from flask import Flask, session
+#from flask_session import Session
+#import os
+#app.config['SESSION_TYPE'] = 'filesystem'
+#app.config['SECRET_KEY'] = os.urandom(24)
+#Session(app)
 ##################################################
 
-login_manager = LoginManager(app)  # 实例化扩展类
-login_manager.init_app(app) 
-login_manager.login_view = 'login'
+#login_manager = LoginManager(app)  # 实例化扩展类
+#login_manager.init_app(app) 
+#login_manager.login_view = 'login'
 
 
 @login_manager.user_loader
